@@ -39,3 +39,11 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+// Battlefield Animations
+window.addEventListener('phx:animate', (e) => {
+  let el = document.getElementById(e.detail.id)
+
+  if (el) {
+    liveSocket.execJS(el, el.getAttribute("data-animation"))
+  }
+})
