@@ -1,0 +1,24 @@
+<.form for={@form} phx-change="validate" phx-submit="join">
+  <p class="mb-2">
+    You're about to join the party of adventurous travellers. Reveal your name, stranger!
+  </p>
+
+  <.input
+    type="text"
+    placeholder="Fill in your name here..."
+    field={@form[:name]}
+    phx-debounce="100"
+  />
+
+  <.input
+    type="number"
+    placeholder="Choose your strength"
+    field={@form[:strength]}
+    min="0"
+    max="10"
+  />
+
+  <div class="mt-2">
+    <.button>Join the Group</.button>
+  </div>
+</.form>
