@@ -18,6 +18,8 @@ defmodule FrostmountWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/battlefield", Battlefield
   end
 
   # Other scopes may use custom stacks.

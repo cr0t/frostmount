@@ -12,6 +12,8 @@ defmodule Frostmount.Application do
       FrostmountWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Frostmount.PubSub},
+      # Start the Presence sub-system
+      Frostmount.Presence,
       # Start the Endpoint (http/https)
       FrostmountWeb.Endpoint
       # Start a worker by calling: Frostmount.Worker.start_link(arg)
