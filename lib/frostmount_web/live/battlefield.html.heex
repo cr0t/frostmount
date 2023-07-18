@@ -1,0 +1,49 @@
+<div class="flex flex-col select-none">
+  <div class="flex flex-col self-center justify-center h-64 mb-12">
+    <%= if @beast.is_alive do %>
+      <!-- The image is taken from https://www.enworld.org/media/frost-giant-zombie-png.62611/ -->
+      <img src={~p"/images/frost_giant_zombie.png"} class="mb-4 max-h-full" draggable="false" />
+
+      <div class="h-2 w-full bg-neutral-200" title={"#{@beast.health}%"}>
+        <div class="h-2 bg-red-500" style={"width: #{@beast.health}%"}></div>
+      </div>
+    <% else %>
+      <button phx-click="respawn" class="btn-respawn">
+        <.icon name="hero-arrow-path" /> Respawn
+      </button>
+    <% end %>
+  </div>
+
+  <div class="flex flex-wrap justify-center">
+    <div :for={member <- sort_members(@members)} class="flex flex-col items-center mr-4 mb-4">
+      <div
+        id={"member-#{member.uuid}"}
+        data-animation={animate_attack("#member-#{member.uuid}")}
+        class="text-center w-28"
+      >
+        <!-- The images of minions are taken from the DuckDuckGo search results -->
+        <img
+          src={~p"/images/#{avatar_image(member.avatar_n)}"}
+          class="h-28 w-28"
+          draggable="false"
+        />
+
+        <div class="my-2 text-sm font-bold truncate">
+          <%= member.name %>
+        </div>
+      </div>
+
+      <%= if member.uuid == @uuid do %>
+        <button phx-click="attack" class="btn-attack">
+          <.icon name="hero-bolt-solid" class="opacity-50" /> Attack
+          <span class="opacity-50"><%= member.strength %></span>
+        </button>
+      <% else %>
+        <div class="damage-info">
+          <.icon name="hero-bolt" class="opacity-50" /> Damage
+          <span class="opacity-50"><%= member.strength %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

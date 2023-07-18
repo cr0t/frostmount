@@ -4,17 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
+    <.live_title suffix=" | Phoenix Workshop">
       <%= assigns[:page_title] || "Frostmount" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-white antialiased">
+  <body class="bg-slate-50 antialiased">
     <header class="px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-center mx-auto max-w-2xl py-4">
-        <div class="flex items-center gap-4">
+        <div class="flex items-center">
           <a href="/">
             <img src={~p"/images/logo.svg"} class="h-8" />
           </a>
@@ -22,11 +22,6 @@
       </div>
     </header>
 
-    <main class="px-4 py-4 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl">
-        <.flash_group flash={@flash} />
-        <%= @inner_content %>
-      </div>
-    </main>
+    <%= @inner_content %>
   </body>
 </html>
