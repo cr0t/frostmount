@@ -7,11 +7,18 @@ defmodule Frostmount.Application do
 
   @impl true
   def start(_type, _args) do
+    node_name = "frostmount-#{generate_uuid()}"
+    redis_host = Application.fetch_env!(:frostmount, :redis_host)
+
     children = [
       # Start the Telemetry supervisor
       FrostmountWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Frostmount.PubSub},
+      {Phoenix.PubSub,
+       name: Frostmount.PubSub,
+       adapter: Phoenix.PubSub.Redis,
+       host: redis_host,
+       node_name: node_name},
       # Start the Presence sub-system
       Frostmount.Presence,
       # Start the Endpoint (http/https)
@@ -33,4 +40,6 @@ defmodule Frostmount.Application do
     FrostmountWeb.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  defp generate_uuid(), do: :uuid.get_v4() |> :uuid.uuid_to_string() |> to_string()
 end
