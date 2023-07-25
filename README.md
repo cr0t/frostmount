@@ -4,6 +4,16 @@ It's a playground application made for the Elixir Brainwashing workshop.
 
 This app's main goal is to teach students about the Phoenix framework and LiveView and PubSub systems, which are important features of Phoenix.
 
+The final result is a multiplayer realtime micro-game that allows group of minions fight against a frozen zombie monster:
+
+<table>
+  <tr>
+    <td><img width="612" alt="image" src="https://github.com/cr0t/frostmount/assets/113878/f6d3edc1-7775-4fa7-be46-7ef073521e07"></td>
+    <td><img width="612" alt="image" src="https://github.com/cr0t/frostmount/assets/113878/3e736802-d77e-413c-83c1-d6744320d3d0"></td>
+    <td><img width="612" alt="image" src="https://github.com/cr0t/frostmount/assets/113878/a2a56859-5f29-4870-b8fb-676a8a4f4a8e"></td>
+  </tr>
+</table>
+
 ## How to Work With This Repository
 
 We assume that students have Elixir on their machines. We recommend using [`asdf`](https://asdf-vm.com/) and its [Elixir plugin](https://github.com/asdf-vm/asdf-elixir); check the corresponding links for more information.
