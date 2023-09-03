@@ -5,7 +5,7 @@ defmodule FrostmountWeb.Battlefield do
 
   alias Frostmount.Core.{Beast, Hero}
 
-  @heal_period 1000
+  @heal_period 500
   @heal_points 5
 
   def mount(%{"name" => name, "strength" => strength}, _session, socket),
@@ -75,10 +75,13 @@ defmodule FrostmountWeb.Battlefield do
   end
 
   def handle_info(:heal_the_beast, socket) do
-    %{beast: beast} = socket.assigns
+    %{beast: beast, members: members} = socket.assigns
 
-    if i_am_master?(socket) and Beast.needs_healing?(beast),
-      do: broadcast({:update_the_beast, Beast.heal(beast, @heal_points)})
+    if i_am_master?(socket) and Beast.needs_healing?(beast) do
+      adjusted_heal_points = @heal_points + extra_heal_points(members)
+
+      broadcast({:update_the_beast, Beast.heal(beast, adjusted_heal_points)})
+    end
 
     schedule_beast_healing()
 
@@ -153,4 +156,7 @@ defmodule FrostmountWeb.Battlefield do
 
   def animate_attack(element_id),
     do: JS.transition(%JS{}, "animate-attack", to: element_id, time: 100)
+
+  defp extra_heal_points(members),
+    do: members |> Enum.count() |> Kernel.div(2)
 end
