@@ -14,36 +14,39 @@
     <% end %>
   </div>
 
+  <div class="text-center mb-10">
+    <button phx-click="attack" class="btn-attack">
+      <.icon name="hero-bolt-solid" class="opacity-50" /> Attack
+      <span class="opacity-50"><%= @hero.strength %></span>
+    </button>
+  </div>
+
   <div class="flex flex-wrap justify-center">
-    <div :for={member <- sort_members(@members)} class="flex flex-col items-center mr-4 mb-4">
+    <div
+      :for={member <- sort_members(@members)}
+      class="flex flex-col items-center mb-4 mr-2 lg:mr-4"
+    >
       <div
         id={"member-#{member.uuid}"}
         data-animation={animate_attack("#member-#{member.uuid}")}
-        class="text-center w-28"
+        class="text-center w-12 lg:w-20"
       >
         <!-- The images of minions are taken from the DuckDuckGo search results -->
         <img
           src={~p"/images/#{avatar_image(member.avatar_n)}"}
-          class="h-28 w-28"
+          class="h-12 w-12 lg:h-20 lg:w-20"
           draggable="false"
         />
 
-        <div class="my-2 text-sm font-bold truncate">
+        <div class="my-2 text-sm lg:font-bold truncate">
           <%= member.name %>
         </div>
       </div>
 
-      <%= if member.uuid == @uuid do %>
-        <button phx-click="attack" class="btn-attack">
-          <.icon name="hero-bolt-solid" class="opacity-50" /> Attack
-          <span class="opacity-50"><%= member.strength %></span>
-        </button>
-      <% else %>
-        <div class="damage-info">
-          <.icon name="hero-bolt" class="opacity-50" /> Damage
-          <span class="opacity-50"><%= member.strength %></span>
-        </div>
-      <% end %>
+      <div class="damage-info">
+        <.icon name="hero-bolt" class="opacity-50" />
+        <span class="hidden lg:inline">Damage</span> <%= member.strength %>
+      </div>
     </div>
   </div>
 </div>
