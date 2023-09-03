@@ -8,7 +8,16 @@ defmodule FrostmountWeb.Battlefield do
   @heal_period 1000
   @heal_points 5
 
-  def mount(%{"name" => name, "strength" => strength}, _session, socket) do
+  def mount(%{"name" => name, "strength" => strength}, _session, socket),
+    do: start_game(name, strength, socket)
+
+  def mount(%{"name" => name}, _session, socket),
+    do: start_game(name, randomize_strength(), socket)
+
+  def mount(_params, _session, socket),
+    do: {:ok, redirect(socket, to: ~p"/")}
+
+  defp start_game(name, strength, socket) do
     uuid = generate_uuid()
     hero = Hero.new(name: name, avatar: Enum.random(1..9), strength: String.to_integer(strength))
     beast = Beast.new()
@@ -32,8 +41,6 @@ defmodule FrostmountWeb.Battlefield do
 
     {:ok, socket}
   end
-
-  def mount(_params, _session, socket), do: {:ok, redirect(socket, to: ~p"/")}
 
   ###
   ### Game Logic
@@ -116,6 +123,9 @@ defmodule FrostmountWeb.Battlefield do
   ###
   ### Helpers
   ###
+
+  defp randomize_strength(),
+    do: Enum.random(2..@heal_points) |> to_string()
 
   defp generate_uuid(),
     do: :uuid.get_v4() |> :uuid.uuid_to_string() |> to_string()
