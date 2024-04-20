@@ -4,7 +4,7 @@ defmodule Frostmount.MixProject do
   def project do
     [
       app: :frostmount,
-      version: "0.1.0",
+      version: "0.2.1",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -19,7 +19,7 @@ defmodule Frostmount.MixProject do
   def application do
     [
       mod: {Frostmount.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :crypto]
     ]
   end
 

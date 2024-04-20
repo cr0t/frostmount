@@ -30,22 +30,27 @@ Brief summary of the branches/steps:
 * [`step-5-final-battlefield`](https://github.com/cr0t/frostmount/tree/step-5-final-battlefield) the final version of the `Battlefield` module, ready to be run on one machine with multiple browser sessions connected
 * [`step-6-deploy-to-fly`](https://github.com/cr0t/frostmount/tree/step-6-deploy-to-fly) shows how to use Fly.io (check the commit messages) to deploy the Frostmount application there, so it can be used by multiple users from different parts of the world
 * [`step-extra-pubsub-via-redis`](https://github.com/cr0t/frostmount/tree/step-extra-pubsub-via-redis) contains an experiment – configuration for Redis PubSub adapter – that can allow students to run their Frostmount instances on own machines (in Dev-mode) and let these machines talk to each other as in cluster
+* [`step-extra-deploy-as-container`](https://github.com/cr0t/frostmount/tree/step-extra-deploy-as-container) contains an experiment – scripts for building a container and notes on deployment.
 
-## Phoenix Basics
+## How to Deploy (as a Container)
 
-To start your Phoenix server:
+### Short Version
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Essentially, these are the steps we need to take to deploy this app:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+0. Make some changes; bump the app's version in the `mix.exs`.
+1. Build a new version image and likely upload it somewhere (e.g., to Docker Hub or GitHub Container Registry).
+2. Set up the server machine: we need a reverse proxy (e.g., nginx or traefik) and Docker runtime available there.
+3. Use Docker or (maybe easier) Docker Compose to set up and run the app.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+### More Detailed One
 
-### Learn more
+Foremost, we need to have Docker ready to build images on your development or CI machine (you can have Docker Desktop installed or something else; even Podman may work; just ensure that you have an alias of `podman` to `docker` commands).
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+We provide two scripts to build and push the image to a registry. Please check the code and comments in the `scripts/build.sh` and `scripts/release.sh` files.
+
+Technically, we only need to execute the `scripts/release.sh <repository/to/be/used/for/image>` command to build a new image and then upload it to the given registry. That's about the first part of the deployment process—making a new image.
+
+There is another side to the deployment: server configuration. It's difficult to recommend any specific way of configuring the public machine on how to handle this. However, for example, we use Nginx as a reverse proxy that listens to some publicly available address (and handles SSL traffic), while the application itself is running in a container on the same (or another) machine as Nginx and handles requests by some internally available port.
+
+We can't provide a detailed Nginx configuration. Though, for the container part, we can recommend using our `docker-compose.example.yml` file in the root of this repository. Just ensure that you point your Docker service to the right registry and set the correct version of the app to be pulled and executed.
