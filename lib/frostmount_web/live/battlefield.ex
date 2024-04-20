@@ -154,9 +154,6 @@ defmodule FrostmountWeb.Battlefield do
   defp avatar_image(n),
     do: "minion-#{n}.png"
 
-  def animate_attack(element_id),
-    do: JS.transition(%JS{}, "animate-attack", to: element_id, time: 100)
-
   defp extra_heal_points(members),
     do: members |> Enum.count() |> Kernel.div(2)
 end
