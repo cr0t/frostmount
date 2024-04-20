@@ -15,3 +15,16 @@
 .damage-info {
   @apply border border-transparent bg-neutral-50 rounded px-2 py-1 text-neutral-600 text-sm cursor-default;
 }
+
+@keyframes attack {
+  0% {
+    transform: translateY(0px) scale(1, 1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.05, 1.05);
+    background: transparent;
+  }
+  100% {
+    transform: translateY(0px) scale(1,1);
+  }
+}
