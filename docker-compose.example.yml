@@ -1,0 +1,11 @@
+services:
+  frostmount:
+    image: ghcr.io/example-user/frostmount:0.1.0
+    container_name: frostmount
+    environment:
+      PHX_HOST: frostmount.example.com
+      PHX_SERVER: true
+      SECRET_KEY_BASE: 4tPx2...1dIw6 # use `mix phx.gen.secret` to generate new
+    ports:
+      - 4000:4000
+    restart: unless-stopped
