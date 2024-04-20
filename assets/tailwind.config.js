@@ -16,16 +16,6 @@ module.exports = {
       colors: {
         brand: "#FD4F00",
       },
-      keyframes: {
-        attack: {
-          '0%': { transform: 'translateY(0px) scale(1,1)' },
-          '50%': { transform: 'translateY(-4px) scale(1.05,1.05)', background: 'transparent' },
-          '100%': { transform: 'translateY(0px) scale(1,1)' },
-        },
-      },
-      animation: {
-        attack: 'attack 0.1s linear 1 forwards',
-      }
     },
   },
   plugins: [

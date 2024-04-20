@@ -40,10 +40,12 @@ liveSocket.connect()
 window.liveSocket = liveSocket
 
 // Battlefield Animations
-window.addEventListener('phx:animate', (e) => {
+window.addEventListener('phx:animate', function (e) {
   let el = document.getElementById(e.detail.id)
 
   if (el) {
-    liveSocket.execJS(el, el.getAttribute("data-animation"))
+    setTimeout(function () {
+      el.style.animation = 'attack linear 0.1s'
+    }, 25)
   }
 })
