@@ -128,7 +128,7 @@ defmodule FrostmountWeb.Battlefield do
   ###
 
   defp randomize_strength(),
-    do: Enum.random(2..@heal_points) |> to_string()
+    do: Enum.random((@heal_points - 1)..(@heal_points + 2)) |> to_string()
 
   defp generate_uuid(),
     do: :uuid.get_v4() |> :uuid.uuid_to_string() |> to_string()
