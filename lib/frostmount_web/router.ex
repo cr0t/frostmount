@@ -18,6 +18,7 @@ defmodule FrostmountWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/quick", PageController, :quick
 
     live "/battlefield", Battlefield
   end

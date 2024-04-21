@@ -26,10 +26,7 @@
       :for={member <- sort_members(@members)}
       class="flex flex-col items-center mb-4 mr-2 lg:mr-4"
     >
-      <div
-        id={"member-#{member.uuid}"}
-        class="text-center w-12 lg:w-20"
-      >
+      <div id={"member-#{member.uuid}"} class="text-center w-12 lg:w-20">
         <!-- The images of minions are taken from the DuckDuckGo search results -->
         <img
           src={~p"/images/#{avatar_image(member.avatar_n)}"}

@@ -1,3 +1,7 @@
 <.flash_group flash={@flash} />
 
 <%= live_render(@conn, FrostmountWeb.Lobby) %>
+
+<div class="mt-8 flex justify-center items-center opacity-40">
+  You can also press&nbsp;<%= link("Quick Join", to: "/quick", class: "btn-quick_join") %>&nbsp;to pick a random name for you character.
+</div>

@@ -83,6 +83,7 @@ defmodule FrostmountWeb do
     quote do
       # HTML escaping functionality
       import Phoenix.HTML
+      import Phoenix.HTML.Link
       # Core UI components and translation
       import FrostmountWeb.CoreComponents
       import FrostmountWeb.Gettext
