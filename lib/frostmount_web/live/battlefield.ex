@@ -4,22 +4,25 @@ defmodule FrostmountWeb.Battlefield do
   import Frostmount.Dispatcher
 
   alias Frostmount.Core.{Beast, Hero}
+  alias Frostmount.GameGenerator
 
   @heal_period 500
-  @heal_points 5
 
   def mount(%{"name" => name, "strength" => strength}, _session, socket),
     do: start_game(name, strength, socket)
 
   def mount(%{"name" => name}, _session, socket),
-    do: start_game(name, randomize_strength(), socket)
+    do: start_game(name, to_string(GameGenerator.strength()), socket)
 
   def mount(_params, _session, socket),
     do: {:ok, redirect(socket, to: ~p"/")}
 
   defp start_game(name, strength, socket) do
     uuid = generate_uuid()
-    hero = Hero.new(name: name, avatar: Enum.random(1..9), strength: String.to_integer(strength))
+    avatar = GameGenerator.avatar()
+    strength = String.to_integer(strength)
+
+    hero = Hero.new(name: name, avatar: avatar, strength: strength)
     beast = Beast.new()
 
     if connected?(socket) do
@@ -29,12 +32,7 @@ defmodule FrostmountWeb.Battlefield do
 
     socket =
       socket
-      |> assign(%{
-        uuid: uuid,
-        hero: hero,
-        beast: beast,
-        members: %{}
-      })
+      |> assign(%{uuid: uuid, hero: hero, beast: beast, members: %{}})
       |> handle_joins(presence_list())
 
     schedule_beast_healing()
@@ -78,7 +76,7 @@ defmodule FrostmountWeb.Battlefield do
     %{beast: beast, members: members} = socket.assigns
 
     if i_am_master?(socket) and Beast.needs_healing?(beast) do
-      adjusted_heal_points = @heal_points + extra_heal_points(members)
+      adjusted_heal_points = GameGenerator.heal_points() + extra_heal_points(members)
 
       broadcast({:update_the_beast, Beast.heal(beast, adjusted_heal_points)})
     end
@@ -126,9 +124,6 @@ defmodule FrostmountWeb.Battlefield do
   ###
   ### Helpers
   ###
-
-  defp randomize_strength(),
-    do: Enum.random((@heal_points - 1)..(@heal_points + 2)) |> to_string()
 
   defp generate_uuid(),
     do: :uuid.get_v4() |> :uuid.uuid_to_string() |> to_string()

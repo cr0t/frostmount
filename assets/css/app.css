@@ -16,6 +16,10 @@
   @apply border border-red-500 bg-red-100 rounded drop-shadow-lg px-2 py-1 text-red-600 text-sm font-bold hover:bg-red-50 active:saturate-200;
 }
 
+.btn-quick_join {
+  @apply border border-gray-500 bg-gray-100 rounded drop-shadow-lg px-2 py-1 text-gray-600 text-sm font-bold hover:bg-gray-50 active:saturate-200;
+}
+
 .damage-info {
   @apply border border-transparent bg-neutral-50 rounded px-2 py-1 text-neutral-600 text-sm cursor-default;
 }
