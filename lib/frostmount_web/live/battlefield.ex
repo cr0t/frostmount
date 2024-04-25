@@ -151,4 +151,7 @@ defmodule FrostmountWeb.Battlefield do
 
   defp extra_heal_points(members),
     do: members |> Enum.count() |> Kernel.div(2)
+
+  defp self?(%{uuid: uuid}, own_uuid),
+    do: uuid == own_uuid
 end
