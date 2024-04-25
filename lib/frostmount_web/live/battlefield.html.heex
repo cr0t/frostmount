@@ -2,7 +2,12 @@
   <div class="flex flex-col self-center justify-center h-64 mb-12">
     <%= if @beast.is_alive do %>
       <!-- The image is taken from https://www.enworld.org/media/frost-giant-zombie-png.62611/ -->
-      <img src={~p"/images/frost_giant_zombie.png"} class="mb-4 max-h-full" draggable="false" />
+      <img
+        src={~p"/images/frost_giant_zombie.png"}
+        class="beast"
+        phx-click="attack"
+        draggable="false"
+      />
 
       <div class="h-2 w-full bg-neutral-200" title={"#{@beast.health}%"}>
         <div class="h-2 bg-red-500" style={"width: #{@beast.health}%"}></div>
@@ -24,9 +29,13 @@
   <div class="flex flex-wrap justify-center">
     <div
       :for={member <- sort_members(@members)}
-      class="flex flex-col items-center mb-4 mr-2 lg:mr-4"
+      class={"player_card #{if self?(member, @uuid), do: "player_card-self", else: ""}"}
     >
-      <div id={"member-#{member.uuid}"} class="text-center w-12 lg:w-20">
+      <div
+        id={"member-#{member.uuid}"}
+        class="text-center w-12 lg:w-20"
+        title={if self?(member, @uuid), do: "It's you!", else: ""}
+      >
         <!-- The images of minions are taken from the DuckDuckGo search results -->
         <img
           src={~p"/images/#{avatar_image(member.avatar_n)}"}
