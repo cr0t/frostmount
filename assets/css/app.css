@@ -17,7 +17,7 @@
 }
 
 .btn-quick_join {
-  @apply border border-gray-500 bg-gray-100 rounded drop-shadow-lg px-2 py-1 text-gray-600 text-sm font-bold hover:bg-gray-50 active:saturate-200;
+  @apply border border-gray-500 bg-gray-100 rounded-lg px-3 py-2 text-gray-600 text-sm font-semibold hover:bg-gray-50 active:saturate-200;
 }
 
 .beast {

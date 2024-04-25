@@ -2,6 +2,14 @@
 
 <%= live_render(@conn, FrostmountWeb.Lobby) %>
 
-<div class="mt-8 flex justify-center items-center opacity-40">
-  You can also press&nbsp;<%= link("Quick Join", to: "/quick", class: "btn-quick_join") %>&nbsp;to pick a random name for you character.
+<hr class="my-8" />
+
+<div class="text-center opacity-50">
+  You can also press…
+
+  <div class="my-4">
+    <%= link("Quick Join", to: "/quick", class: "btn-quick_join") %>
+  </div>
+
+  …to get a random name for you character.
 </div>
